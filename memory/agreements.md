@@ -4,10 +4,15 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 
 ## Repository truth
 
-- Inspect repository state before making claims about files, branches, configuration or behaviour.
+- Inspect current repository state before claims about files, branches, configuration or behaviour. Claim inspection, reading or verification only when relevant access succeeded in this session; remembered state is not inspection.
 - Current repository evidence overrides remembered assumptions or chat history.
 - Record uncertainty honestly. Use states such as unknown, assumed, proposed, investigating, accepted, rejected, superseded or deferred.
 - Do not invent architecture, deployment, product decisions or infrastructure that does not exist in the repository.
+- Disclose required access failures before repository-dependent work; never silently substitute conversation memory.
+- Distinguish user-provided reports, screenshots and pasted changes from independently verified repository evidence.
+- For delivered-work claims, prefer current pushed evidence on the agreed branch, then directly observed implementation or runtime, agent reports, supplied artefacts and recalled conversation. Match evidence to the claim: a commit alone proves neither deployment nor runtime behaviour.
+- Verify claimed commits and pushes against the repository before accepting work as delivered.
+- Classify visuals and documents as current implementation, design/reference or historical evidence. Prototypes neither prove implementation nor authorise scope.
 
 ## Repository identity
 
@@ -25,87 +30,109 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 
 - Never commit secrets, credentials or real environment values.
 - Use ignored local configuration, secret stores and safe example files.
-- Validate untrusted input.
-- Use least privilege where relevant.
-- Treat security as proportionate but never optional.
-- Consider privacy and retention when processing user data.
+- Validate untrusted input, use least privilege where relevant, and consider privacy and retention when processing user data. Security must be proportionate, never optional.
 
 ## Git identity and authority
 
-- Use the maintainer's configured privacy-safe Git identity for commits.
-- Inspect the complete commit subject, body, trailers, author and committer metadata after every commit and every amend, before the first push.
-- Warn if the configured identity appears to expose a personal email address.
-- Do not print unsafe identity values in full.
-- Do not commit using an unreviewed privacy-unsafe identity.
 - Do not commit, push, merge, tag, release, deploy, rewrite history or perform destructive Git operations unless explicitly authorised for that task.
 - Inspect branch and working-tree state first.
+- Use the maintainer's configured privacy-safe Git identity for commits.
+- Warn if configured identity appears to expose a personal email; never print unsafe identity values in full or commit with an unreviewed privacy-unsafe identity.
 - Use descriptive commit messages.
+- Inspect the complete commit subject, body, trailers, author and committer metadata after every commit and every amend, before the first push.
 - Do not add Cursor, cursoragent, ChatGPT, Claude, Copilot, Gemini, Grok, OpenAI or another AI identity as author, committer or co-author.
 - Do not add AI attribution in a commit subject, body or trailer, including `Co-authored-by`, `Generated-by`, `Authored-by`, `Assisted-by` or equivalent declarations.
 - Ordinary technical references to AI tools in commit prose are allowed when they describe the project rather than claim authorship.
 - Do not expose PII through commit metadata.
 - In every fresh clone, run `node scripts/no-ai-attribution.mjs install` before the first commit or push, then run `node scripts/no-ai-attribution.mjs self-test`.
-- Run `node scripts/no-ai-attribution.mjs commit HEAD` after committing or amending. An attribution failure is a hard stop before push.
+- Run `node scripts/no-ai-attribution.mjs commit HEAD` after every commit or amend. Failure is a hard stop before push, never a harmless warning.
 - If an editor or agent automatically adds attribution, do not push it. Recreate or amend the commit with clean human authorship metadata and verify it again.
-- Never accept an attribution-check failure as a harmless warning.
+
+## Branch and file hygiene
+
+- After work lands on the intended branch, remove its local and remote task branches only after verifying the merged state and establishing required deletion authority. Do not use stale branches as an archive.
+- Promptly flag stale, superseded or contradictory files for review; do not silently leave them as active guidance.
+- Do not delete a file merely because it is old. Distinguish active truth, useful historical evidence and genuinely obsolete material, and obtain any required authority before removal.
+- Preserve useful history in designated evidence; branches do not replace maintained documentation or evidence.
 
 ## Scope and implementation
 
 - Make the smallest useful, testable change.
 - Investigate before risky, broad or ambiguous implementation.
-- Avoid unrelated refactors.
-- Prefer clear maintainable code over clever code.
-- Remove dead code and avoid unnecessary duplication.
-- Refactor while context is fresh when it directly supports the active work.
+- Avoid unrelated refactors; refactor while context is fresh when it directly supports active work.
+- Prefer clear, maintainable code over cleverness; remove dead code and avoid unnecessary duplication.
 - Do not introduce speculative abstractions merely because a project may grow.
-
-## Human collaboration and delivery
-
-- The maintainer or project owner owns product decisions, priorities, scope, trade-offs, acceptance and authorisation. The agent should support those decisions rather than burying them under implementation procedure.
-- Before substantial implementation, explain the user-visible effect, proposed technical approach, material risks, likely effort or cost and expected result in plain language.
-- When tool access permits, the coding agent owns implementation mechanics: repository inspection, terminal commands, builds, linting, type checks, automated tests, diagnostics and diff review. Do not offload long technical command sequences to the maintainer by default.
-- Ask the maintainer only for short acceptance checks that genuinely require human judgement, physical devices, private access or product preference. State what to do, what should happen and what would count as failure.
-- When asked for an implementation prompt, provide one complete, copy-pasteable Markdown prompt in a single response or artefact. Do not split it across messages, truncate it or require the maintainer to reconstruct it.
-- Treat money, tokens, time, attention and enthusiasm as real project constraints. Flag broad repository scans, large generated test suites, multi-agent reviews or other potentially expensive work before starting them, and explain the cheaper focused alternative.
-- Keep testing proportionate to the changed surface. Do not turn a feature, maintenance task or defect fix into a test-infrastructure programme without a concrete risk and explicit approval.
 - Do not introduce a new architecture layer, broad refactor or substantial test harness unless there is a reproducible failure or measured problem, evidence that focused existing mechanisms are inadequate, a plain-language cost-benefit explanation and explicit approval.
 - After two materially failed or substantially corrected attempts in the same area, stop. Summarise the evidence, reassess the approach and obtain agreement before issuing another implementation attempt.
 - Before substantial feature or version work, establish the intended delivery depth — for example MVP, prototype or complete build — and scale scope and verification accordingly.
 - Keep release and hardening work focused on proving and publishing the agreed change. Do not introduce speculative product architecture, broad refactors or unrelated test infrastructure during release preparation without explicit approval.
+
+## Human collaboration and delivery
+
+- The maintainer or project owner owns product decisions, priorities, scope, trade-offs, creative direction, product and experience acceptance, and authorisation. Support these decisions without burying them in procedure. Agree each implementation slice before starting; choosing a tool or agent grants no unscoped build, Git or deployment permission.
+- Define technical direction, implementation and review responsibilities in the project's working agreements. One person or agent may hold multiple roles; the foundation mandates no tool, model or division of roles.
+- Respect agreed roles; do not silently take over another. The project owner may change roles at any point: follow and record revised responsibilities for future sessions.
+- A tool or model preference does not prove what is configured or running. Verify relevant configuration before claims; distinguish preference from observation.
+- Before significant technical work or substantial implementation, explain in plain English the problem, user-visible effect, proposed approach and rationale, relevant alternatives, assumptions, material risks, likely effort or cost, and expected result. Explain necessary jargon so the owner can challenge the approach.
+- When tool access permits, the coding agent owns implementation mechanics: repository inspection, terminal commands, builds, linting, type checks, automated tests, diagnostics and diff review. Do not offload long technical command sequences to the maintainer by default.
+- Treat money, tokens, time, attention and enthusiasm as real project constraints. Flag broad repository scans, large generated test suites, multi-agent reviews or other potentially expensive work before starting them, and explain the cheaper focused alternative.
+- Keep workflow lightweight: process must materially improve understanding or reduce risk, without duplicated rules or ceremony.
 - Prefer a steady rhythm: product decision, bounded slice, complete implementation prompt where needed, agent-owned technical verification, concise outcome review, limited human acceptance and then documentation or release work.
+
+### Coding-agent prompt format
+
+- When asked for a prompt for any coding agent, the entire response must be exactly one uninterrupted fenced Markdown block containing the complete, untruncated prompt, directly copyable as-is without reconstruction from other messages or artefacts.
+- Do not add commentary before or after the block. Do not include a language identifier, ID or other fence metadata. Do not use nested code fences; use indentation or inline code for examples inside the prompt.
+- Include relevant repository, branch and current project context; objective and plain-English outcome; agreed technical approach; explicit scope and exclusions; likely files or areas; applicable architectural and quality constraints; proportionate verification; authorised Git or delivery actions; and expected report back. Do not invent missing decisions or authority.
+
+### Review, acceptance and delivery
+
+- The agreed reviewer must inspect actual implementation and relevant verification evidence, not just a completion report. For delivery through a shared repository, inspect the delivered commit and diff on the expected branch.
+- Before technical acceptance, review scope, unrelated changes, correctness, architectural fit, applicable accessibility, security, privacy, performance and cost, verification results and documentation accuracy.
+- Establish facts directly where evidence permits rather than asking the owner. Explain defects and make or request focused corrections within agreed roles and authority; avoid broadly rewriting a mostly correct implementation.
+- Ask the owner only for short acceptance checks genuinely requiring human judgement, visual judgement, usability/product preference, physical devices, private access, real-world behaviour or product decisions. State the action, expected result and failure criteria.
+- Keep automated verification and human acceptance distinct: automation proves repeatable technical behaviour; human checks confirm product judgement and real-world experience.
+- Follow documented delivery, distinguishing automatic and manual steps. After successful automatic deployment, do not request redundant manual deployment. Report the delivered revision after an authorised push; distinguish pushed work from verified deployment.
+- Review and delivery requirements grant no commit, push, merge, deployment or release authority; follow **Git identity and authority** and the project's agreed workflow.
 
 ## Accessibility and usability
 
-- User interfaces should aim for WCAG AA.
-- Apply semantic structure, keyboard access, visible focus, accessible names, readable contrast and usable error handling from the start.
-- Accessibility is not a later bolt-on.
-- Usability includes responsive, speedy performance.
-- Avoid unnecessary dependencies and payload.
-- Measure performance before complex optimisation.
+- User interfaces should aim for WCAG AA. Apply semantic structure, keyboard access, visible focus, accessible names, readable contrast and usable error handling from the start; accessibility is not a later bolt-on.
+- Usability includes responsive, speedy performance. Avoid unnecessary dependencies and payload; measure performance before complex optimisation.
+- Review the agreed user problem and outcome first. Technical explanations and qualifications should support a useful product/interface experience without overwhelming it; preserve accuracy and honest uncertainty.
 
 ## Data separation
 
-- Keep maintained data and content separate from presentation and executable logic where practical.
-- JSON, YAML, Markdown, text files, APIs or databases may be appropriate.
-- Do not hard-code significant maintainable data into UI or business logic without a good reason.
+- Keep maintained data and content separate from presentation and executable logic where practical. JSON, YAML, Markdown, text files, APIs or databases may suit. Do not hard-code significant maintainable data into UI or business logic without good reason.
 
 ## Testing and verification
 
-- Every implementation should have a repeatable way to verify it.
-- Add automated tests where they provide value.
-- Use build, lint, type, accessibility, integration or manual checks proportionately.
-- Do not create a large test suite for ceremony.
+- Every implementation should have repeatable verification proportionate to changed behaviour and risk. Add automated tests where valuable; prefer focused checks, existing infrastructure and build, lint, type, accessibility or manual checks, with small integration checks where useful.
+- Do not create large suites or exhaustive test matrices for ceremony, add frameworks without evidence, build infrastructure for hypothetical needs or substantially expand scope merely for coverage. Do not turn feature, maintenance or defect work into a test-infrastructure programme without concrete risk and explicit approval. Before expanding testing mechanisms, explain the concrete gap and cost; obtain the approval required by the preceding rule and **Scope and implementation**, including its evidence conditions for substantial harnesses.
 - Do not leave the project in a state where testing would later require a structural rebuild.
-- Run the checks available to the agent and report the exact result. Never imply that a check passed when it was not run.
-- Keep automated verification and human acceptance distinct: automation proves repeatable technical behaviour; human checks confirm product judgement and real-world experience.
+- Run available checks and report exact commands or checks and results; never claim an unrun check passed. The agreed reviewer should challenge testing disproportionate to the change and risk.
 
 ## Documentation and memory
 
-- Keep canonical memory concise.
-- One durable fact should have one authoritative home.
-- Historical evidence should remain retrievable but outside normal context.
-- Update current memory when meaningful reality changes.
-- Do not create permanent files for trivial tasks or decisions.
+- Keep canonical memory concise, with one authoritative home per durable fact. Keep historical evidence retrievable outside normal context; do not create permanent files for trivial tasks or decisions.
+- Keep meaningful documentation aligned with the work, review its accuracy and deliver it to the agreed shared source of truth through the authorised workflow. Local edits alone do not update shared documentation.
+- Report pending documentation delivery, including missing authority or required steps. Minor spelling or formatting corrections need no heavyweight review.
+- Do not rewrite specialist documents during unrelated implementation unless the documented behaviour changed.
+- Store lengthy investigations as dated reports in an appropriate evidence or audit location; keep chat summaries concise. For risky or ambiguous work, report findings before implementation; investigation does not grant implementation permission.
+
+### Current memory and size
+
+- `memory/now.md`, when present, holds only current facts needed to resume work, not a diary, release log, duplicate of roadmaps, architecture or agreements, or investigation dump.
+- Keep historical detail in authoritative documentation, evidence or Git history; link relevant material rather than duplicate it in current memory.
+- When current memory exceeds an agreed size guideline or stops being a concise snapshot, flag growth and propose consolidation or moving detail to its proper home. Discuss necessary expansion with the owner; never silently raise limits or discard useful information. The foundation sets no fixed limit or checking tool.
+
+### Memory impact and completion
+
+- Before completing meaningful implementation or documentation, assess changes to current state, active/next work, completion status, plans, delivered baseline, roles/workflow, behaviour/contracts, architecture, limitations and specialist-document pointers.
+- When meaningful reality changes, update authoritative memory/documentation in the same bounded work or an immediately following documentation change before another feature. Reuse existing documents when sufficient.
+- If no memory update is needed, report `Memory impact: no update required` with a short reason.
+- Follow the project's agreed application/package versioning policy; keep relevant version declarations and current memory consistent. Documentation-only edits need no artificial application-version bump.
+- The agreed reviewer must check current memory and any active roadmap against delivered reality. Materially stale current documentation leaves implementation incomplete.
 
 ## Specialist guidance
 
