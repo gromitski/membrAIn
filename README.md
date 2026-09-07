@@ -12,10 +12,10 @@ You begin with only a few files. You remain in control of decisions, diffs, comm
 
 A normal project follows a short progression:
 
-1. You write or dictate an unfinished idea.
-2. You ask an AI to initialise the project.
-3. You review the interpreted intent and next safe action.
-4. You begin one useful slice.
+1. You describe an unfinished idea to your AI.
+2. You explore it with an AI, without a setup questionnaire.
+3. When you want to retain the project, the AI initialises its memory for your review.
+4. When ready to build, you agree one useful slice and any working choices it needs.
 5. You return later and ask a fresh AI to resume from repository memory.
 6. As the project matures, you ask naturally for a roadmap, architecture notes or a deployment guide.
 7. The AI creates and links only the durable documentation that is now useful.
@@ -85,7 +85,7 @@ What does **not** happen:
 
 ## Start a new project
 
-The foundation ships six day-zero files:
+The foundation ships these starter files:
 
 ```text
 README.md
@@ -93,33 +93,40 @@ START.md
 LICENSE
 .gitignore
 memory/agreements.md
+AGENTS.md
+CLAUDE.md
 .cursor/rules/00-project-foundation.mdc
+scripts/no-ai-attribution.mjs
 ```
 
 From your perspective:
 
-- **`START.md`** gives you somewhere informal to think.
+- **`START.md`** is the single entry point: give it to your AI and describe your idea in the conversation. The AI handles the project files.
 - **`memory/agreements.md`** teaches assistants how to work safely.
-- **`.cursor/rules/00-project-foundation.mdc`** points Cursor to project memory automatically.
+- **`AGENTS.md`**, **`CLAUDE.md`** and **`.cursor/rules/00-project-foundation.mdc`** are small tool adapters pointing to `START.md`; they are not separate onboarding flows.
+- **`scripts/no-ai-attribution.mjs`** supplies the Git safeguards described in the agreements.
 - **`README.md`** helps humans understand and use the foundation.
 - **`.gitignore`** provides a basic privacy and local-file baseline.
 - **`LICENSE`** permits reuse.
 
 To begin:
 
-1. Create a repository from the foundation or copy the six day-zero files.
-2. Replace the body of [`START.md`](START.md) with rough intent.
-3. Open the full initialisation prompt below.
-4. Paste it into a repository-aware assistant.
-5. Review the resulting memory and diff.
-6. Commit only when satisfied.
+1. Create a repository from the foundation or copy the starter files above, preserving their paths.
+2. Give your AI access to the repository and point it to [`START.md`](START.md).
+3. Describe your idea in the conversation; the AI helps you explore it without asking you to edit project files.
+4. When you want to retain the project, ask the AI to initialise it. It prepares the files; you review the memory and diff.
+5. Agree an implementation slice when ready; commit only when satisfied and explicitly authorised.
 
-Uncertainty is acceptable. Record unknowns honestly rather than inventing decisions.
+You can stay in brainstorming for as long as useful. Working choices are discussed only when they affect the next step; you can ask for a recommendation and revise decisions later. The agent records agreed choices once and reuses them. See **Starting and evolving a project** in [`memory/agreements.md`](memory/agreements.md).
+
+### Initialisation procedure
+
+The agent follows this procedure when you ask to retain or initialise the project. It also serves as a copyable prompt for tools that need an explicit instruction. Reading it alone does not authorise initialisation or implementation.
 
 <details>
 <summary><strong>Copy the full initialisation prompt</strong></summary>
 
-```markdown
+```
 Initialise this AI Project Foundation repository.
 
 1. Inspect repository and Git state.
@@ -131,8 +138,8 @@ Initialise this AI Project Foundation repository.
    - If email appears personal rather than privacy-safe, record a concise warning without echoing the full value.
    - Do not commit or push during initialisation.
    - If a commit is later requested, pause until Git identity is privacy-safe or explicitly approved by the maintainer.
-3. Read `START.md` and `memory/agreements.md`.
-4. Confirm whether the project is already initialised (`memory/intent.md` and `memory/now.md` present with real content).
+3. Read `START.md` and `memory/agreements.md`, including Starting and evolving a project. Use the owner's idea and decisions from the conversation plus any existing idea notes; do not require manual template edits. Ask only about missing information needed for the next step.
+4. Confirm whether the project is already initialised (`memory/intent.md` and `memory/now.md` present with real content). If memory is partial, preserve approved content and complete only genuinely missing steps; do not recreate existing files blindly.
 
 If already initialised:
 - Do not overwrite project memory blindly.
@@ -141,26 +148,26 @@ If already initialised:
 - Preserve existing approved project memory.
 
 If not initialised:
-5. Interpret the rough intent without inventing decisions.
+5. Interpret the rough intent without inventing decisions. If neither the conversation nor existing notes contain a real idea, ask for it before creating memory. Do not require implementation or delivery choices for an exploratory project.
 6. Create:
    - `memory/intent.md`
    - `memory/now.md`
-   - `evidence/origin/YYYY-MM-DD-origin.md` (archive the user's words from START.md; remove the instructional template text; redact accidental PII or local-system information and note any redaction)
-7. Replace `START.md` with the initialised-project pointer (see foundation template).
+   - `evidence/origin/YYYY-MM-DD-origin.md` (archive the user's own words from the supplied idea and any existing idea notes in START.md; exclude assistant prose and instructional template text; redact accidental PII or local-system information and note any redaction)
+7. Replace `START.md` with the initialised-project entry point below, preserving its routing instructions. It remains the single starting point for every AI.
 8. Update this README with only:
    - project name
    - one-line stable description
    - links to `memory/intent.md` and `memory/now.md`
    Do not add lifecycle state, active slice details, version history, deployment status or Git identity to the README.
-9. Record unknowns explicitly.
-10. Propose one small, interesting first slice.
+9. Record material uncertainties explicitly, without a checklist of irrelevant future choices. Record confirmed working arrangements in the Project choices section of memory/agreements.md; do not add an empty section.
+10. Propose one small, useful next step. Further exploration is valid; initialisation does not authorise implementation.
 11. Do not create architecture docs, deployment docs, roadmaps, `memory/decisions/`, specialist docs, work files, generated context or identity configuration files unless the rough intent and existing repository already genuinely require them.
 12. Scan intended changes for PII, local-system information, secrets and private values.
 13. Do not commit or push unless explicitly asked.
 14. Return:
     - interpreted purpose
     - uncertainties
-    - proposed first slice
+    - proposed next step (exploration or an implementation slice for agreement)
     - Git identity status (configured / missing / may be privacy-unsafe) without printing unsafe values in full
     - exact files changed
     - next prompt to begin work
@@ -173,7 +180,11 @@ If not initialised:
 
 **START.md** after initialisation:
 
-# Project initialised
+# Start here
+
+This project is initialised. Tell your AI what you want to explore or work on; it handles the project files where access permits.
+
+For the AI: read `memory/agreements.md` and `memory/now.md`, then `memory/intent.md` when purpose or scope matters. Inspect relevant repository and Git state; follow only task-relevant pointers. Reuse agreed project choices, ask only about missing decisions needed next, and do not restart onboarding. Disclose access or editing limitations rather than claiming unverified or unsaved work.
 
 Current project memory:
 
@@ -203,7 +214,7 @@ Your next steps:
 2. Read `memory/now.md` and check that the next safe action is realistic.
 3. Review the Git diff.
 4. Commit the initial foundation only when satisfied.
-5. Begin the proposed first slice.
+5. Continue exploring or agree the proposed implementation slice before beginning it.
 
 No further setup is necessarily required. You do not need architecture, deployment, testing or roadmap files before useful work begins.
 
@@ -215,27 +226,21 @@ You remain responsible for correcting misunderstood intent, accepting or rejecti
 
 This is your main everyday prompt:
 
-```markdown
+```
 Resume this project from the repository.
 
-Read:
-
-- `memory/agreements.md`
-- `memory/now.md`
-- `memory/intent.md`
-
-Follow only the pointers relevant to the active task.
+Start with `START.md` and follow its instructions to read canonical agreements and relevant project memory. Follow only the pointers relevant to the active task.
 
 Summarise the project's current position, then help me complete the next safe action as one focused slice.
 
 Create or update permanent documentation only when this work exposes a durable need. Keep it concise, avoid duplication, and link relevant specialist material from `memory/now.md`.
 
-Do not commit or push unless I explicitly ask.
+Follow the Git authority rules and any explicitly granted project choices. If this task is not covered by recorded permission, do not commit or push unless I explicitly authorise it.
 ```
 
 To end a slice cleanly:
 
-```markdown
+```
 Review the completed work against the original objective.
 
 Run proportionate verification, then update `memory/now.md` only if the project's current reality or next safe action has changed.
@@ -254,7 +259,7 @@ Do not create a separate report unless the findings need durable evidence.
 
 Conversational memory is not project memory. After a week or six months, a fresh assistant should resume from the repository, not from an old chat.
 
-It should read `memory/agreements.md`, `memory/now.md` and `memory/intent.md`, then follow pointers in `memory/now.md` to deeper material such as a roadmap or architecture note. Old conversation history is unnecessary when repository memory is current.
+It should begin with `START.md`, which routes to `memory/agreements.md`, `memory/now.md` and relevant intent, then follow pointers to deeper material such as a roadmap or architecture note. Old conversation history is unnecessary when repository memory is current.
 
 You do not need to paste the full repository into chat. Repository-aware tools can inspect files directly. Review what the AI claims it has read.
 
@@ -262,15 +267,19 @@ You do not need to paste the full repository into chat. Repository-aware tools c
 
 The project memory is ordinary Markdown, so it is not locked to one AI product.
 
-**Cursor** includes a short convenience rule that points to project memory automatically. It does not contain the full project history.
+**Any AI** can begin with `START.md`, including ChatGPT, Claude and Gemini. Give it repository access or provide that file first; no manual template editing is required. It should ask for the additional files it needs and disclose any reading or editing limitations.
 
-**Claude Code** can use the same files and the everyday session prompt. A duplicated `CLAUDE.md` is optional and usually unnecessary.
+**Codex and agents supporting `AGENTS.md`** are directed to `START.md` by the small adapter.
 
-**Other repository-aware assistants** (including repository-connected ChatGPT and similar agents) can inspect files directly when you point them to the three memory files and use the everyday prompt.
+**Cursor** includes an always-applied rule directing it to `START.md`.
 
-**Chat-only assistants** need the three memory files plus task-relevant code and specialist material. Upload or paste them:
+**Claude Code** imports `AGENTS.md` through a one-line `CLAUDE.md`, reaching the same `START.md`. Tool files route to the entry point rather than duplicate the agreements.
 
-```markdown
+**Other repository-aware assistants** can inspect files directly when you point them to `START.md`. Use the everyday resume prompt if a tool needs more explicit direction.
+
+**Chat-only assistants** should receive `START.md` first, then the agreements and any current memory or task-relevant material they request. They can prepare content but cannot save it without editing access; use a repository-capable tool to apply it. For an established project, the following evidence handoff is also available:
+
+```
 I am providing:
 
 - `memory/agreements.md`
@@ -291,10 +300,10 @@ The memory spine is intentionally small. An assistant does not need to read the 
 
 The foundation cannot control vendor pricing, indexing or automatic context attachment. Practical controls still help: keep `memory/now.md` concise; avoid "read the entire repository" prompts; ask for targeted inspection; start a new conversation when context has drifted; use cheaper models for mechanical work; review auto-attached context in tools that expose it.
 
-```markdown
+```
 Use the minimum context needed for this task.
 
-Start with `memory/agreements.md`, `memory/now.md` and `memory/intent.md`.
+Start with `START.md` and follow its routing to the agreements and relevant project memory.
 
 Inspect only the files directly relevant to the active work. Do not perform a broad repository review unless you find a concrete dependency or I explicitly ask for one.
 ```
@@ -324,7 +333,7 @@ Update `memory/intent.md` when durable intent changes. Update `memory/now.md` wh
 - no AI co-author metadata on commits
 - maintained data separated from presentation and logic where practical
 
-The Cursor rule points to agreements. It does not duplicate them.
+The tool entry points route to agreements. They do not duplicate them.
 
 ## Use it with an existing project
 
@@ -334,7 +343,7 @@ Do not copy the whole foundation over an established repository. Add the `memory
 
 **Does it organise everything automatically?** No. It provides structure and reading order. You and your assistants maintain the files through instructed work, subject to review.
 
-**Do I give every AI the whole repository?** No. Begin with the three memory files and inspect task-relevant material only.
+**Do I give every AI the whole repository?** No. Begin with `START.md`; the AI follows its routing and asks for any specific files it cannot access.
 
 **Will this consume lots of credits?** The memory files are concise. Broad repository reading and long accumulated chats cost more.
 
@@ -346,7 +355,7 @@ Do not copy the whole foundation over an established repository. Add the `memory
 
 **Must every task update project memory?** No. Update only when intent, current reality or the next action meaningfully changes.
 
-**Does it commit automatically?** No. Commits happen only when you explicitly authorise them, after reviewing identity, diff and verification.
+**Does it commit automatically?** Not by default. Commit and push permission must be explicit for the task or covered by a defined standing permission you have granted. Identity, diff and verification checks still apply.
 
 **Can a team use it?** Yes. Treat canonical memory like code and review changes together.
 

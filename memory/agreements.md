@@ -35,6 +35,7 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 ## Git identity and authority
 
 - Do not commit, push, merge, tag, release, deploy, rewrite history or perform destructive Git operations unless explicitly authorised for that task.
+- An explicitly granted project-specific standing permission covers a task only within its recorded actions, scope, target branches/environments and exclusions. Do not infer it from a tool choice, implementation approval or example workflow; absent or unclear permission requires explicit authorisation before the affected action.
 - Inspect branch and working-tree state first.
 - Use the maintainer's configured privacy-safe Git identity for commits.
 - Warn if configured identity appears to expose a personal email; never print unsafe identity values in full or commit with an unreviewed privacy-unsafe identity.
@@ -78,6 +79,15 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 - Treat money, tokens, time, attention and enthusiasm as real project constraints. Flag broad repository scans, large generated test suites, multi-agent reviews or other potentially expensive work before starting them, and explain the cheaper focused alternative.
 - Keep workflow lightweight: process must materially improve understanding or reduce risk, without duplicated rules or ceremony.
 - Prefer a steady rhythm: product decision, bounded slice, complete implementation prompt where needed, agent-owned technical verification, concise outcome review, limited human acceptance and then documentation or release work.
+
+### Starting and evolving a project
+
+- Use the owner's request and existing decisions. Ask one short question only when an unresolved choice affects the next step; do not repeat settled questions or present a setup questionnaire. If the owner is unsure, explain a proportionate recommendation and obtain agreement before recording a decision.
+- Take the owner's idea from the conversation or existing notes; never require them to edit a template. During brainstorming, explore and reflect back the idea. Require no tool, role, branch or deployment choices, and do not initialise files or start implementation merely because the idea is detailed. When asked to retain or initialise it, follow the initialisation procedure in `README.md` and prepare the files yourself where access permits; more exploration remains a valid next step.
+- Before implementation, settle missing choices needed for the agreed slice: intended depth, preferred tools if any, and technical direction, implementation and review responsibilities. Ask about tools, then their roles, only if unresolved. One agent can hold multiple roles; tool names establish neither roles nor authority.
+- When the next step requires sharing or publishing work, first agree where the owner will review the result (local, preview or development), the checks and delivery steps before acceptance, and whether commit/push permission is per task or explicitly granted for a defined scope. Assume no branch, pull-request policy, hosting service or need to publish; apply the Git authority rules.
+- Record confirmed arrangements in a concise **Project choices** section here, adding it only when needed. Current work belongs in `memory/now.md` when present. Create no empty choice fields, questionnaire file, speculative documents or duplicated universal rules.
+- Reuse choices in later sessions. Settle changes with the owner and update the same record, revisiting only affected choices. The owner can revise arrangements at any point; changing a tool or environment does not silently expand permissions.
 
 ### Coding-agent prompt format
 
