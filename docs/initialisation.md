@@ -37,7 +37,7 @@ If not initialised:
    - one-line stable description
    - links to `memory/intent.md` and `memory/now.md`
    Do not add lifecycle state, active slice details, version history, deployment status or Git identity to the README.
-9. Record material uncertainties explicitly, without a checklist of irrelevant future choices. Record confirmed working arrangements in the Project choices section of memory/agreements.md; do not add an empty section.
+9. Record material uncertainties explicitly, without a checklist of irrelevant future choices. Record confirmed working arrangements in the Project choices section of memory/agreements.md; do not add an empty section. Include one concise foundation-baseline note there, using the source version and revision when evidenced. Identify an unreleased or modified source as such, and mark an unknown baseline honestly; do not infer full adoption from a copied label. This provenance does not choose tools, roles or delivery permissions. Do not change an existing project's baseline merely by reading this procedure; use docs/upgrading.md for a requested upgrade.
 10. Propose one small, useful next step. Further exploration is valid; initialisation does not authorise implementation.
 11. Do not create architecture docs, deployment docs, roadmaps, `memory/decisions/`, specialist docs, work files, generated context or identity configuration files unless the rough intent and existing repository already genuinely require them.
 12. Scan intended changes for PII, local-system information, secrets and private values.
@@ -62,7 +62,7 @@ If not initialised:
 
 This project is initialised. Tell your AI what you want to explore or work on; it handles the project files where access permits.
 
-For the AI: read `memory/agreements.md` and `memory/now.md`, then `memory/intent.md` when purpose or scope matters. Inspect relevant repository and Git state; follow only task-relevant pointers. Reuse agreed project choices, ask only about missing decisions needed next, and do not restart onboarding. Disclose access or editing limitations rather than claiming unverified or unsaved work.
+For the AI: read `memory/agreements.md` and `memory/now.md`, then `memory/intent.md` when purpose or scope matters. Inspect relevant repository and Git state; establish the applicable baseline where branches or experiments differ, and follow only task-relevant pointers. Reuse agreed project choices, ask only about missing decisions needed next, and do not restart onboarding. Disclose access or editing limitations rather than claiming unverified or unsaved work.
 
 Current project memory:
 

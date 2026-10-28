@@ -6,6 +6,8 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 
 - Inspect current repository state before claims about files, branches, configuration or behaviour. Claim inspection, reading or verification only when relevant access succeeded in this session; remembered state is not inspection.
 - Current repository evidence overrides remembered assumptions or chat history.
+- Establish the branch, experiment or delivery baseline relevant to the task before relying on its memory. Where several coexist, use existing records to identify their purposes; ask only if the target remains ambiguous. Distinguish local work from shared or deployed state. Do not carry implementation choices or permissions across baselines without evidence that they apply.
+- Code establishes observed behaviour, not approval of requirements or design choices. Preserve that distinction when reconciling implementation with agreed intent; surface unresolved conflicts rather than silently treating the code as the decision.
 - Record uncertainty honestly. Use states such as unknown, assumed, proposed, investigating, accepted, rejected, superseded or deferred.
 - Do not invent architecture, deployment, product decisions or infrastructure that does not exist in the repository.
 - Disclose required access failures before repository-dependent work; never silently substitute conversation memory.
@@ -85,6 +87,7 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 - Use the owner's request and existing decisions. Ask one short question only when an unresolved choice affects the next step; do not repeat settled questions or present a setup questionnaire. If the owner is unsure, explain a proportionate recommendation and obtain agreement before recording a decision.
 - Take the owner's idea from the conversation or existing notes; never require them to edit a template. During brainstorming, explore and reflect back the idea. Require no tool, role, branch or deployment choices, and do not initialise files or start implementation merely because the idea is detailed. When asked to retain or initialise it, follow the initialisation procedure in `docs/initialisation.md` and prepare the files yourself where access permits; more exploration remains a valid next step.
 - Before implementation, settle missing choices needed for the agreed slice: intended depth, preferred tools if any, and technical direction, implementation and review responsibilities. Ask about tools, then their roles, only if unresolved. One agent can hold multiple roles; tool names establish neither roles nor authority.
+- Before recommending an unfamiliar production workflow, establish relevant spending constraints, owner involvement and what the assistant can actually author, save, export and integrate. Reuse known answers; investigate accessible facts instead of asking the owner. Label unverified capabilities and use a small feasibility proof within agreed authority when needed. A free trial or available tool is not proof of a usable production route; do not offload routine production or build a replacement tool merely to conceal a capability gap.
 - When the next step requires sharing or publishing work, first agree where the owner will review the result (local, preview or development), the checks and delivery steps before acceptance, and whether commit/push permission is per task or explicitly granted for a defined scope. Assume no branch, pull-request policy, hosting service or need to publish; apply the Git authority rules.
 - Record confirmed arrangements in a concise **Project choices** section here, adding it only when needed. Current work belongs in `memory/now.md` when present. Create no empty choice fields, questionnaire file, speculative documents or duplicated universal rules.
 - Reuse choices in later sessions. Settle changes with the owner and update the same record, revisiting only affected choices. The owner can revise arrangements at any point; changing a tool or environment does not silently expand permissions.
@@ -102,6 +105,7 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 - Establish facts directly where evidence permits rather than asking the owner. Explain defects and make or request focused corrections within agreed roles and authority; avoid broadly rewriting a mostly correct implementation.
 - Ask the owner only for short acceptance checks genuinely requiring human judgement, visual judgement, usability/product preference, physical devices, private access, real-world behaviour or product decisions. State the action, expected result and failure criteria.
 - Keep automated verification and human acceptance distinct: automation proves repeatable technical behaviour; human checks confirm product judgement and real-world experience.
+- Prepare and check the agreed route for reviewing the result, such as a local launcher, preview, exported asset or development deployment. Provide the location and shortest useful action, with any remaining access, device or tool limitation. Passing implementation checks alone does not establish a usable review route; report it as pending if not verified. Creative acceptance, technical verification and release readiness are separate claims.
 - Follow documented delivery, distinguishing automatic and manual steps. After successful automatic deployment, do not request redundant manual deployment. Report the delivered revision after an authorised push; distinguish pushed work from verified deployment.
 - Review and delivery requirements grant no commit, push, merge, deployment or release authority; follow **Git identity and authority** and the project's agreed workflow.
 
@@ -134,6 +138,7 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 
 - `memory/now.md`, when present, holds only current facts needed to resume work, not a diary, release log, duplicate of roadmaps, architecture or agreements, or investigation dump.
 - Keep historical detail in authoritative documentation, evidence or Git history; link relevant material rather than duplicate it in current memory.
+- Maintain memory by replacing superseded current statements, not appending a running history. Keep `memory/intent.md` focused on durable purpose, principles and boundaries rather than release status. Consolidate useful detail into its existing authoritative home where possible, retaining evidence and unresolved facts; do not delete history merely to shorten a file. See the optional [worked example](../docs/memory-maintenance.md) when consolidation is needed.
 - When current memory exceeds an agreed size guideline or stops being a concise snapshot, flag growth and propose consolidation or moving detail to its proper home. Discuss necessary expansion with the owner; never silently raise limits or discard useful information. The foundation sets no fixed limit or checking tool.
 
 ### Memory impact and completion
@@ -143,6 +148,12 @@ Universal rules for humans and agents working on this project. Canonical vendor-
 - If no memory update is needed, report `Memory impact: no update required` with a short reason.
 - Follow the project's agreed application/package versioning policy; keep relevant version declarations and current memory consistent. Documentation-only edits need no artificial application-version bump.
 - The agreed reviewer must check current memory and any active roadmap against delivered reality. Materially stale current documentation leaves implementation incomplete.
+- Check affected entry-point statements and active pointers when updating state, including whether linked guidance still applies to the task's baseline. Resolve evidenced stale statements within scope; flag uncertain contradictions instead of inventing a resolution or rewriting unrelated documents.
+
+### Decision rationale and foundation upgrades
+
+- Beside the authoritative record of a consequential acceptance, rejection or reversal, retain a concise reason, its scope and any quality that future work must preserve. Mark proposals and superseded choices clearly; neither a pleasing reference image nor an experiment's acceptance automatically approves final assets, technology or release. Preserve significant prior rationale in existing evidence or Git history without creating a compulsory decision log for trivial choices.
+- Upgrading the foundation is an optional, separately scoped change. Follow [the upgrade procedure](../docs/upgrading.md) when requested; preserve local arrangements and review meaningful differences before adoption. Record only an evidenced adopted baseline and any exclusions. Do not automatically replace agreements, synchronise projects or treat a version label as proof of complete adoption.
 
 ## Specialist guidance
 

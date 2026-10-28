@@ -1,6 +1,6 @@
 # membrAIn
 
-[Version 3.0](https://github.com/gromitski/membrAIn/releases/tag/v3.0)
+[Version 4.0](https://github.com/gromitski/membrAIn/releases/tag/v4.0) · [Changes and validation](docs/reviews/v4-review.md)
 
 **A shared memory for you and your AI.**
 
@@ -34,7 +34,7 @@ When you want to keep your progress, ask the AI to save the project memory. With
 | `memory/intent.md` | What you are making, who it is for and what matters. |
 | `memory/now.md` | Where things stand and the next useful step. |
 
-The agreements come with membrAIn and can adapt as your project expands. The AI creates the intent and current-state files when you ask it to retain the project, and updates them as things change. Other documents are added only when useful.
+The agreements come with membrAIn and can adapt as your project expands. The AI creates the intent and current-state files when you ask it to retain the project. As things change, it should replace outdated current notes, preserve important reasons for decisions and keep useful history in the appropriate supporting documents. Other documents are added only when useful.
 
 ## Q&A
 
@@ -64,6 +64,9 @@ No. The files give it a shared reference; the AI still needs to read and maintai
 
 **Can I add it to an existing project?**
 Yes. Ask your AI to inspect both projects and propose how to adopt membrAIn while preserving your existing files and workflow.
+
+**How do I update a project using an older membrAIn?**
+Ask your AI to compare it with the version you want to adopt and propose an upgrade using the [upgrade guide](docs/upgrading.md). Review the changes before applying them. Your project's decisions and permissions must be preserved; nothing updates automatically.
 
 **Will it use fewer AI credits?**
 It can help by directing the AI to relevant files instead of loading everything into each chat. Actual usage depends on your tool and task; membrAIn cannot control what the tool automatically includes.
